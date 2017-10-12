@@ -1,0 +1,5 @@
+//- includes/messages.pug
+if messages.error && messages.error.length > 0
+  div.alert.alert-danger #{ messages.error }
+if messages.info && messages.info.length > 0
+  div.alert.alert-success #{ messages.info }

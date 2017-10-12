@@ -1,0 +1,9 @@
+//- includes/user.pug
+if user
+  #userinfo.card
+    h4.card-header You are logged in
+    .card-block
+      p.card-text Your email address is #{ user.email }
+    a#logout_button.btn.btn-primary(href='/auth/logout') Logout
+else
+  .alert.alert-danger Something went wrong. User information not found

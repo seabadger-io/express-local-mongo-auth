@@ -1,0 +1,11 @@
+//- index.pug
+extends layout
+
+block content
+  h1= title
+  include includes/messages.pug
+  #indexcontent
+    if user
+      include includes/user.pug
+    else
+      include includes/loginform.pug

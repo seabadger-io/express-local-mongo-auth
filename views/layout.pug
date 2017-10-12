@@ -1,0 +1,14 @@
+//- layout.pug
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    #content.row
+      .col-xs-12
+        block content
+    footer.footer
+      script(src='/javascripts/jquery.min.js')
+      script(src='/javascripts/site.js')
