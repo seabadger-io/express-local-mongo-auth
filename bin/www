@@ -4,30 +4,48 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('blog.node-authentication:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('express-local-mongo-auth:server');
+const http = require('http');
+const fs = require('fs');
+const https = require('https');
+const secrets = require('../config/secrets.js');
+const config = require('../config/appcfg.js');
 
-/**
- * Get port from environment and store in Express.
- */
+if (config.http.enabled) {
+  // set HTTP port
+  const http_port = normalizePort(process.env.PORT || config.http.port || '8080');
+  // create HTTP server
+  const server = http.createServer(app);
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+  // start listening on the configured port
+  server.listen(http_port);
+  server.on('error', onError);
+  server.on('listening', () => {
+    console.log('HTTP server started on port ' + http_port);
+  });
+}
 
-/**
- * Create HTTP server.
- */
+if (config.https.enabled) {
+  // set HTTPS port
+  const https_port = normalizePort(process.env.SSL_PORT || config.https.port || '8443');
 
-var server = http.createServer(app);
+  // configure ssl key
+  const server_key = fs.readFileSync(config.https.key, 'utf8');
+  const server_crt = fs.readFileSync(config.https.crt, 'utf8');
+  const ssloptions = { key: server_key, cert: server_crt };
+  if (secrets.https.passphrase.length > 0) ssloptions.passphrase = secrets.https.passphrase;
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  // create HTTPS server
+  const sslserver = https.createServer(ssloptions, app);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  // start listening on the configured port
+  sslserver.listen(https_port);
+  sslserver.on('error', onError);
+  sslserver.on('listening', () => {
+    console.log('HTTPS server started on port ' + https_port);
+  });
+}
 
 /**
  * Normalize a port into a number, string, or false.
@@ -50,42 +68,20 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for server "error" event.
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error('Port requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error('Port ' + error.port + ' already in use');
       process.exit(1);
       break;
     default:
       throw error;
   }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  console.log('Server started on port ' + port);
 }

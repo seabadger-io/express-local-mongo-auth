@@ -59,3 +59,4 @@ typings/
 
 # Secrets
 config/secrets.js
+config/cert/*
