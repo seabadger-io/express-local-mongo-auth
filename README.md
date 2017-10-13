@@ -5,6 +5,7 @@ This is a full-fledged sample project which implements:
 * local password authentication (users stored in MongoDB)
 * a RESTful server over HTTP and HTTTPS
 * a simple gulp configuration to watch changes, lint javascript and restart server
+* registration form validation with jQuery validation and bootstrap
 
 The sample project uses:
 * Express
