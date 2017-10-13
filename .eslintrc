@@ -1,5 +1,8 @@
 {
   "extends": "eslint:recommended",
+  "globals": {
+    "document": true
+  },
   "rules": {
     "eqeqeq": 1,
     "no-console": 0,

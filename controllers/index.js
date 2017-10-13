@@ -1,4 +1,4 @@
-const title = 'Multi-strategy authentication';
+const title = 'Local authentication sample';
 
 exports.renderIndex = function(req, res) {
   res.render('index', { title: title, user: req.user });

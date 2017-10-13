@@ -1,6 +1,6 @@
 module.exports = {
   db: {
-    url: 'mongodb://localhost/multi-auth'
+    url: 'mongodb://localhost/express-auth'
   },
   http: {
     enabled: true,
