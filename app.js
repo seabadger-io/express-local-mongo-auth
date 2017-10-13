@@ -30,7 +30,7 @@ mongoose.connect(config.db.url, {
   () => {
     console.log('Connected to MongoDB');
   },
-  err => {
+  (err) => {
     console.log('MongoDB connection failed: ' + err);
     process.exit(1);
   }
@@ -67,14 +67,14 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use(function (req, res, next) {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

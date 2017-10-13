@@ -13,7 +13,7 @@ form#registration_form(action='/auth/register' method='POST')
     label.col-sm-4(for='password_confirm_input') Re-enter password
     .col-sm-5
       input.form-control#password_confirm_input(type='password' name='confirm_password' placeholder='Repeat your password')
-  button.btn.btn-primary#register_button(type='submit') Register
+  button.btn.btn-primary.col-sm-offset-3#register_button(type='submit') Register
 
 p Already a user? Click 
   a(href='/') here

@@ -12,31 +12,31 @@ exports.login = function (req, res, next) {
       req.flash('error', 'Login failed');
       return res.redirect('/');
     }
-		// establish session
-    req.login(user, err => {
+    // establish session
+    req.login(user, (err) => {
       if (err) {
         return next(err);
       }
-			req.flash('info', 'Login successful');
-			res.redirect('/');
-    });    
+      req.flash('info', 'Login successful');
+      res.redirect('/');
+    });
   })(req, res, next);
 };
 
 exports.register = function (req, res, next) {
   const user = {
-    email: req.body.email,
+    email: req.body.email
   };
-	if (req.body.password.length < 1) {
+  if (req.body.password.length < 1) {
     req.flash('error', 'Password required');
     return res.redirect('/register');
   }
-  User.register(new User(user) , req.body.password, function(err) {
+  User.register(new User(user), req.body.password, (err) => {
       if (err) {
         req.flash('error', err.message);
         return res.redirect('/register');
       }
-      passport.authenticate('local')(req, res, function () {
+      passport.authenticate('local')(req, res, () => {
         req.flash('info', 'Registration successful');
         return res.redirect('/');
       });

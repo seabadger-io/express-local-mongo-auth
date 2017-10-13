@@ -1,18 +1,18 @@
 // routes/auth.js
 
-var express = require('express');
-var router = express.Router();
-var local_controller = require('../controllers/auth-local.js');
+const express = require('express');
+const router = express.Router();
+const localController = require('../controllers/auth-local.js');
 
 /* Request login */
-router.post('/login', local_controller.login);
+router.post('/login', localController.login);
 
 /* Request registration */
-router.post('/register', local_controller.register);
+router.post('/register', localController.register);
 
 /* Request logout */
-router.get('/logout', local_controller.logout);
-router.post('/logout', local_controller.logout);
+router.get('/logout', localController.logout);
+router.post('/logout', localController.logout);
 
 module.exports = router;
 

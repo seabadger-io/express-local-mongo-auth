@@ -1,12 +1,20 @@
 {
-  "extends": "eslint:recommended",
+  "extends": "google",
   "globals": {
     "document": true
   },
   "rules": {
-    "eqeqeq": 1,
-    "no-console": 0,
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+//    "eqeqeq": 1,
+//    "no-console": 0,
+    "new-cap": 0,
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "comma-dangle": ["error", "never"],
+    "object-curly-spacing": ["error", "always"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
    },
    "parserOptions": {
       "ecmaVersion": 6

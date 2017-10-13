@@ -9,7 +9,7 @@ form(action='/auth/login' method='POST')
     label.col-sm-4(for='password_input') Password
     .col-sm-5
       input.form-control#password_input(type='password' name='password' placeholder='Enter your password')
-  button.btn.btn-primary#login_button(type='submit') Login
+  button.btn.btn-primary.col-sm-offset-3#login_button(type='submit') Login
 
 p Not a user yet? Click 
   a(href='/register') here
