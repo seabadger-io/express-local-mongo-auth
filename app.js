@@ -11,7 +11,6 @@ const passport = require('passport');
 const User = require('./models/user');
 // configs
 const config = require('./config/appcfg');
-const secrets = require('./config/secrets');
 // routers
 const index = require('./routes/index');
 const auth = require('./routes/auth');
@@ -24,11 +23,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // connect to MongoDB, exit on error without retry
-mongoose.connect(config.db.url, {
+mongoose.connect(config.db.uri, {
   useMongoClient: true
 }).then(
   () => {
-    console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB (' + mongoose.connection.name + ')');
   },
   (err) => {
     console.log('MongoDB connection failed: ' + err);
@@ -38,7 +37,7 @@ mongoose.connect(config.db.url, {
 
 // setup session handler
 app.use(require('express-session')({
-  secret: secrets.session.secret,
+  secret: config.session.secret,
   resave: false,
   saveUninitialized: false,
   rolling: true,

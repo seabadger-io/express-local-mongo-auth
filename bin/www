@@ -9,7 +9,6 @@ const debug = require('debug')('express-local-mongo-auth:server');
 const http = require('http');
 const fs = require('fs');
 const https = require('https');
-const secrets = require('../config/secrets.js');
 const config = require('../config/appcfg.js');
 
 if (config.http.enabled) {
@@ -34,7 +33,7 @@ if (config.https.enabled) {
   const server_key = fs.readFileSync(config.https.key, 'utf8');
   const server_crt = fs.readFileSync(config.https.crt, 'utf8');
   const ssloptions = { key: server_key, cert: server_crt };
-  if (secrets.https.passphrase.length > 0) ssloptions.passphrase = secrets.https.passphrase;
+  if (config.https.passphrase.length > 0) ssloptions.passphrase = config.https.passphrase;
 
   // create HTTPS server
   const sslserver = https.createServer(ssloptions, app);

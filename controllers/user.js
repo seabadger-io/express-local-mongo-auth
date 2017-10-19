@@ -27,7 +27,8 @@ const getUserById = function (req, res, next, id) {
     if (user) {
       return res.json(user);
     } else {
-      return next(new Error('User not found').status(404));
+      res.status = 404;
+      res.json({ message: 'User not found' });
     }
   });
 };
